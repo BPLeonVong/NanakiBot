@@ -1,14 +1,15 @@
 {
-    "name": "nanakibot",
-    "version": "0.0.1",
-    "description": "Nanaki Bot is a discord bot based on the character from the Japanese novel \"Lightning Empress Maid\" designed for/by Leon Vong, to dabble around with.",
-    "main": "app.js",
-    "scripts": {
-	"test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "Leon Vong",
-    "license": "ISC",
-    "dependencies": {
-	"discord.js": "^11.0.0"
-    }
+  "name": "nanakibot",
+  "version": "0.0.1",
+  "description": "Nanaki Bot is a discord bot based on the character from the Japanese novel \"Lightning Empress Maid\" designed for/by Leon Vong, to dabble around with.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leon Vong",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.0.0",
+    "express": "^4.15.2"
+  }
 }
