@@ -1,0 +1,9 @@
+{
+    "prefix":"!",
+    "responseObject": {
+	"Who?": "Everyone around the world, it's Nanaki.",
+	"Smile": "Highly reputable Nanakismile. Everyone around the world, it's Nanaki.",
+	"Emote?": "Does this image work?",
+	"imgEmote": "How about this image work?"
+    }
+}

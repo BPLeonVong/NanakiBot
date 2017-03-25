@@ -2,12 +2,13 @@
 var Discord = require("discord.js");
 var client = new Discord.Client();
 var config = require('./config.json');
+var data = require('./data.json')
 var fs = require("fs");
 var express = require('express');
 var app = express();
 
 
-client.login(config.token);
+client.login(config.token || process.env.distoken);
 
 client.on('ready', () => {
     console.log('I am ready!');
@@ -18,16 +19,14 @@ client.on("message", (message) => {
     if(message.content.startsWith("Hello"))
 	message.channel.sendMessage("I'm online");
     
-    if (!message.content.startsWith(config.prefix)) return;
+    if (!message.content.startsWith(data.prefix)) return;
 
     if (message.author.bot) return;
 
     var reContent = message.content.replace('!','');
-
-    console.log(message.content);
     
-    if (config.responseObject[reContent]) {
-	message.channel.sendMessage(config.responseObject[reContent]);
+    if (data.responseObject[reContent]) {
+	message.channel.sendMessage(data.responseObject[reContent]);
     }
 
     if(reContent.startsWith("Emote?"))
@@ -36,14 +35,14 @@ client.on("message", (message) => {
     if(reContent.startsWith("imgEmote"))
 	message.channel.sendMessage("Nanakismile", {file:"nanakiTrans.png"});
 
-    if(message.content.startsWith(config.prefix + "prefix")) {
+    if(message.content.startsWith(data.prefix + "prefix")) {
 	// get arguments for the command, as: !prefix +
 	var args = message.content.split(" ").slice(1);
 	// change the configuration in memory
 	config.prefix = args[0];
 
 	// Now we have to save the file.
-	fs.writeFile('../config.json', JSON.stringify(config), (err) => {if(err) console.error(err)});
+	fs.writeFile('../data.json', JSON.stringify(config), (err) => {if(err) console.error(err)});
     }
 });
 
