@@ -1,7 +1,10 @@
 "use strict"
 var Discord = require("discord.js");
 var client = new Discord.Client();
-var config = require('./config.json');
+var config = {};
+try {
+    var config = require('./config.json');   
+} catch (ex) {}
 var data = require('./data.json')
 var fs = require("fs");
 var express = require('express');
