@@ -30,6 +30,12 @@ client.on("message", (message) => {
 	message.channel.sendMessage(config.responseObject[reContent]);
     }
 
+    if(reContent.startsWith("Emote?"))
+	message.channel.sendMessage("<:nanaki:294862507976163338>");
+
+    if(reContent.startsWith("imgEmote"))
+	message.channel.sendMessage("Nanakismile", {file:"nanakiTrans.png"});
+
     if(message.content.startsWith(config.prefix + "prefix")) {
 	// get arguments for the command, as: !prefix +
 	var args = message.content.split(" ").slice(1);
