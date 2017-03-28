@@ -1,15 +1,18 @@
 "use strict"
-var Discord = require("discord.js");
-var client = new Discord.Client();
-var config = {};
+var Discord = require("discord.js"),
+    client = new Discord.Client(),
+    config = {},
+    data = require('./data.json'),
+    fs = require("fs"),
+    express = require('express'),
+    app = express();
 try {
     var config = require('./config.json');   
 } catch (ex) {}
-var data = require('./data.json')
-var fs = require("fs");
-var express = require('express');
-var app = express();
 
+app.use(express.static("public"));
+app.use(express.static("lib"));
+app.use(express.static("images"));
 
 client.login(config.token || process.env.distoken);
 
@@ -56,8 +59,8 @@ client.on("guildMemberAdd", (member) => {
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', function(request, response) {
-  response.send('Hello World!')
+app.get('/', function(req, res) {
+    res.render("index.ejs");
 })
 
 app.listen(app.get('port'), function() {
