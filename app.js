@@ -85,7 +85,7 @@ client.on("message", (message) => {
 //Express
 //app.set('port', (process.env.PORT || 5000));
 //app.use(express.static(__dirname + '/public'));
-server.listen(5000 || process.env.PORT);
+server.listen(5000 || PORT);
 
 //Default Page
 app.get('/', function(req, res) {
