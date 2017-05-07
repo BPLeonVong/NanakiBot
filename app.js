@@ -3,10 +3,37 @@ var Discord  = require("discord.js"),
     express  = require('express'),
     data     = require('./data.json'),
     client   = new Discord.Client(),
-    app      = express(),
-    server   = require('http').Server(app),
-    io       = require('socket.io')(server),
+//    app      = express(),
+//    server   = require('http').Server(app),
+    socketIO = require('socket.io'),
     config   = {};
+
+const PORT = process.env.PORT || 5000;
+
+//const server = express()
+//  .use((req, res) => res.sendFile(INDEX) )
+//  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+//const io = socketIO(server);
+
+const server = express()
+//  .use((req, res) => res.sendFile("index.ejs") )
+      .set('view engine','ejs')
+.use(express.static("public"))
+.use(express.static("lib"))
+.use(express.static("images"))
+//Default Page
+.get('/', function(req, res) {
+    res.render("index.ejs");
+})
+
+//Farm Application Page
+.get('/farmApp', function(req, res) {
+    res.render("FarmApp.ejs");
+})
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+const io = socketIO(server);
 
 try {
     var config = require('./config.json');   
@@ -18,10 +45,6 @@ var field = (function(text){
 var fields = ["/nanakiTrans.png","/shuumatsu2.min.gif"];
 var fieldsDATABASE = [];
 var updateRequired = true;
-
-app.use(express.static("public"));
-app.use(express.static("lib"));
-app.use(express.static("images"));
 
 //Auth. Bot
 client.login(config.token || process.env.distoken);
@@ -83,19 +106,9 @@ client.on("message", (message) => {
 });
 
 //Express
-//app.set('port', (process.env.PORT || 5000));
+//app.listen('port', (process.env.PORT || 5000));
 //app.use(express.static(__dirname + '/public'));
-server.listen(5000 || PORT);
-
-//Default Page
-app.get('/', function(req, res) {
-    res.render("index.ejs");
-});
-
-//Farm Application Page
-app.get('/farmApp', function(req, res) {
-    res.render("FarmApp.ejs");
-});
+//server.listen(5000 || PORT);
 
 //Port
 /*app.listen(app.get('port'), function() {
