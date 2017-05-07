@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/farmApp.css">
+<script type="text/javascript" src="/jquery-3.1.1.min.js"></script>
+<!--
+<script type="text/javascript" src="farmApp.js"></script>
+-->
+
+<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<div id="dataCheck"></div>
+<canvas id="app" width="1080px" height="720px"></canvas>
+<div id="sideMenu"></div>
+
+<script>
+  window.fields = [];
+  var socket = io.connect();
+  
+var canvas = document.getElementById('app');
+var context = canvas.getContext('2d');
+var imageArray = new Array();
+/*
+function SocUpdate() {
+if(imageArray.length == 0 || imageArray === undefined) {
+console.log("initializing");
+
+} else if (imageArray.length>0) {
+  
+ }
+}
+
+*/
+
+function render() {
+  for(i = 0; i<imageArray.length; i++) {
+    context.drawImage(imageArray[i], 100+i*200, 300, 100, 100);
+  }
+}
+
+setInterval(function(){
+SocUpdate();
+render();
+},1000);
+
+
+function SocUpdate(){
+   if(window.fields.length == 0 || window.fields === undefined)
+   {
+     socket.emit('update', { update: 'yes' });
+     console.log("Updated");
+   } else if(imageArray.length !== window.fields.fields.length) {
+      for(var i = 0; i < window.fields.fields.length; i++) {
+         imageArray[i] = new Image();
+	 imageArray[i].src = window.fields.fields[i];
+	 console.log(imageArray[i]);
+      }
+      console.log(imageArray.length +"   " + window.fields.fields.length);
+   }
+}
+
+socket.on('refresh feed',function(fields){
+   console.log("Refreshing");
+   window.fields = fields;
+   console.log(window.fields);
+});
+</script>
+</body>
+</html>

@@ -69,3 +69,8 @@ html, body {
     margin-left:20%;
     width:80%;
 }
+
+#app {
+   width:100%;
+   height:100%;
+}
